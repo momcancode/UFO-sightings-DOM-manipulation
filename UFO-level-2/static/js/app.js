@@ -31,6 +31,19 @@ console.log(uniqueState);
 var uniqueShape = [... new Set(tableData.map(ufo => ufo.shape))];
 console.log(uniqueShape);
 
+// Dynamically add unique countries, states and shapes to dropdown menus
+uniqueCountry.forEach((country) => {
+	d3.select("#country").append("option").text(country)
+});
+
+uniqueState.forEach((state) => {
+	d3.select("#state").append("option").text(state)
+});
+
+uniqueShape.forEach((shape) => {
+	d3.select("#shape").append("option").text(shape)
+});
+
 // Select the button
 var button = d3.select("#filter-btn");
 
