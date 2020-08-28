@@ -21,10 +21,15 @@ tableData.forEach((ufo) => {
 	});
 });
 
-// Create empty arrays to store countries, states, and shapes
-var country = tableData.map(ufo => ufo.country);
-var state = tableData.map(ufo => ufo.state);
-var shape = tableData.map(ufo => ufo.shape);
+// Create arrays to store distinct countries, states, and shapes
+var uniqueCountry = [... new Set(tableData.map(ufo => ufo.country))];
+console.log(uniqueCountry);
+
+var uniqueState = [... new Set(tableData.map(ufo => ufo.state))];
+console.log(uniqueState);
+
+var uniqueShape = [... new Set(tableData.map(ufo => ufo.shape))];
+console.log(uniqueShape);
 
 // Select the button
 var button = d3.select("#filter-btn");
