@@ -57,6 +57,8 @@ function runEnter() {
 	if (results.length === 0) {
 		tbody.text(`No ufo sightings on ${inputValue}.`);
 	}
+
+	// Handle matching results
 	else {
 		results.forEach((ufo) => {
 			var row = tbody.append("tr");
