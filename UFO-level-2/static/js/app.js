@@ -1,8 +1,7 @@
 // from data.js
 var tableData = data;
 
-//** Level 1: Automatic Table and Date Search
-//*** Write code that appends a table to your web page and then adds new rows of data for each UFO sighting.
+// Level 2: Multiple Search Categories
 
 // Get a reference to the table body
 var tbody = d3.select("tbody");
@@ -22,8 +21,10 @@ tableData.forEach((ufo) => {
 	});
 });
 
-//*** Use a date form in your HTML document and write JavaScript code that will listen
-//for events and search through the date/time column to find rows that match user input.
+// Create empty arrays to store countries, states, and shapes
+var country = tableData.map(ufo => ufo.country);
+var state = tableData.map(ufo => ufo.state);
+var shape = tableData.map(ufo => ufo.shape);
 
 // Select the button
 var button = d3.select("#filter-btn");
