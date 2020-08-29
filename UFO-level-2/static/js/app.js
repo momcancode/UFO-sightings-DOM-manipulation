@@ -77,14 +77,14 @@ function runEnter() {
 	}
 
 	// Use the form's inputs and dropdown selections to filter the data by multiple attributes
-	var results = tableData.filter(ufo =>
-		ufo.country === filter.country &&
-		ufo.state === filter.state &&
-		ufo.shape === filter.shape &&
-		ufo.city === filter.city &&
-		ufo.datetime === filter.datetime)
 
-	console.log(results)
+	var results = tableData.filter(function(ufo) {
+		for (var key in filter) {
+			if (ufo[key] === undefined || ufo[key] != filter[key])
+				return false;
+		}
+		return true;
+	});
 	
 	// Clear out current contents in the table
 	tbody.html("");
