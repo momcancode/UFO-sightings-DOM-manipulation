@@ -74,13 +74,13 @@ function runEnter() {
 		shape: shapeInputValue,
 		city: cityInputValue,
 		datetime: dateInputValue
-	}
+	};
 
 	// Use the form's inputs and dropdown selections to filter the data by multiple attributes
 
 	var results = tableData.filter(function(ufo) {
 		for (var key in multifilters) {
-			if (ufo[key] === undefined || ufo[key] != multifilters[key])
+			if (multifilters[key] === undefined || ufo[key] != multifilters[key])
 				return false;
 		}
 		return true;
