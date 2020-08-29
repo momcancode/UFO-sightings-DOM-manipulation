@@ -68,7 +68,7 @@ function runEnter() {
 	var dateInputValue = d3.select("#datetime").property("value");
 
 	// Create filter object
-	var filter = {
+	var multifilters = {
 		country: countryInputValue,
 		state: stateInputValue,
 		shape: shapeInputValue,
@@ -79,8 +79,8 @@ function runEnter() {
 	// Use the form's inputs and dropdown selections to filter the data by multiple attributes
 
 	var results = tableData.filter(function(ufo) {
-		for (var key in filter) {
-			if (ufo[key] === undefined || ufo[key] != filter[key])
+		for (var key in multifilters) {
+			if (ufo[key] === undefined || ufo[key] != multifilters[key])
 				return false;
 		}
 		return true;
