@@ -73,33 +73,33 @@ function runEnter() {
 		state: stateInputValue,
 		shape: shapeInputValue,
 		city: cityInputValue,
-		date: dateInputValue
+		datetime: dateInputValue
 	}
-		var inputValue = inputElements[i].property("value");
 
+	// Use the form's inputs and dropdown selections to filter the data by multiple attributes
+	var results = tableData.filter(ufo =>
+		ufo.country === filter.country &&
+		ufo.state === filter.state &&
+		ufo.shape === filter.shape &&
+		ufo.city === filter.city &&
+		ufo.datetime === filter.datetime)
 
-		// Use the form input to filter the data by datetime
-		var result_country = tableData.filter(ufo => ufo.country === inputValue);
-		
-		// Clear out current contents in the table
-		tbody.html("");
+	console.log(results)
+	
+	// Clear out current contents in the table
+	tbody.html("");
 
-		// Handle no matching results
-		if (results.length === 0) {
-			tbody.text(`No ufo sightings on ${inputValue}.`);
-		}
-		else {
-			results.forEach((ufo) => {
-				var row = tbody.append("tr");
-				Object.entries(ufo).forEach(([key, value]) => {
-					var cell = row.append("td");
-					cell.text(value);
-				});
+	// Handle no matching results
+	if (results.length === 0) {
+		tbody.text(`No ufo sightings found.`);
+	}
+	else {
+		results.forEach((ufo) => {
+			var row = tbody.append("tr");
+			Object.entries(ufo).forEach(([key, value]) => {
+				var cell = row.append("td");
+				cell.text(value);
 			});
-		};
-		}
-
-  
-
-
+		});
+	};
 };
