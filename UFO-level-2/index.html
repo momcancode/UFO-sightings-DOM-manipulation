@@ -32,22 +32,25 @@
             <div class="panel panel-default">
               <div class="panel-heading">Filter Search</div>
               <div class="panel-body">
-                <form>
+                <form id="filter-form">
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
                         <label for="country">Choose a Country</label>
                         <select class="form-control" id="country">
+                          <option style="display:none"></option>
                         </select>
                       </li>
                       <li class="filter list-group-item">
                         <label for="state">Choose a State</label>
                         <select class="form-control" id="state">
+                          <option style="display:none"></option>
                         </select>
                       </li>
                       <li class="filter list-group-item">
                         <label for="shape">Choose a Shape</label>
                         <select class="form-control" id="shape">
+                          <option style="display:none"></option>
                         </select>
                       </li>
                       <li class="filter list-group-item">
@@ -60,7 +63,7 @@
                       </li>
                     </ul>
                   </div>
-                  <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                  <button id="filter-btn" type="reset" class="btn btn-default">Clear Filter</button>
                 </form>
               </div>
             </div>

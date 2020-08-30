@@ -18,8 +18,8 @@ tableData.forEach((ufo) => {
 		// Use d3 to append one cell per ufo object value (date, city, state, country, shape, duration, and comments)  
 		var cell = row.append("td");
 		cell.text(value);
-	});
-});
+	})
+})
 
 // Create arrays to store distinct countries, states, and shapes
 var uniqueCountry = [... new Set(tableData.map(ufo => ufo.country))];
@@ -44,40 +44,61 @@ uniqueShape.forEach((shape) => {
 	d3.select("#shape").append("option").text(shape)
 });
 
-// Select the button
+// Select the button Clear Filter and the form's inputs and dropdown selections
+var country = d3.select("#country");
+var state = d3.select("#state");
+var shape = d3.select("#shape");
+var city = d3.select("#city");
+var datetime = d3.select("#datetime");
 var button = d3.select("#filter-btn");
 
-// Select the form
-var form = d3.select("form");
+// Create event handlers on 
+// button.on("click", filterTable);
+// form.on("submit", filterTable);
+country.on("change", updateFilters);
+state.on("change", updateFilters);
+shape.on("change", updateFilters);
+city.on("change", updateFilters);
+datetime.on("change", updateFilters);
+button.on("click", clear);
 
-// Create event handlers 
-button.on("click", runEnter);
-form.on("submit", runEnter);
+// Create filter object to keep track of all filters
+var multifilters = {};
+
+// Create a function to dynamically add a filter value each time user add any filter
+function updateFilters() {
+
+  // Save the element, value, and id of the filter that was changed
+	// In an event, "this" refers to the html element that received the event.
+  var inputElement = d3.select(this);
+
+	console.log(this)
+
+ // select(".form-control")
+  //var inputValue = inputElement.property("value");
+  var filterId = inputElement.attr("id");
+  var inputValue = inputElement.property("value");
+
+  // If a filter value was entered then add that filterId and value
+  // to the filters list. Otherwise, clear that filter from the filters object.
+  if (inputValue) {
+	  multifilters[filterId] = inputValue;
+  }
+  else {
+    delete multifilters[filterId];
+  }
+
+  // Call function to apply all filters and rebuild the table
+  filterTable();
+}
 
 // Complete the event handler function for the form
-function runEnter() {
+function filterTable() {
 
   // Prevent the page from refreshing
   d3.event.preventDefault();
 
-	// Select the input elements and get the values of the input elements
-	var countryInputValue = d3.select("#country").property("value");
-	var stateInputValue = d3.select("#state").property("value");
-	var shapeInputValue = d3.select("#shape").property("value");
-	var cityInputValue = d3.select("#city").property("value");
-	var dateInputValue = d3.select("#datetime").property("value");
-
-	// Create filter object
-	var multifilters = {
-		country: countryInputValue,
-		state: stateInputValue,
-		shape: shapeInputValue,
-		city: cityInputValue,
-		datetime: dateInputValue
-	};
-
 	// Use the form's inputs and dropdown selections to filter the data by multiple attributes
-
 	var results = tableData.filter(function(ufo) {
 		for (var key in multifilters) {
 			if (multifilters[key] === undefined || ufo[key] != multifilters[key])
@@ -103,3 +124,9 @@ function runEnter() {
 		});
 	};
 };
+
+function clear() {
+	multifilters = {};
+	filterTable();
+	document.getElementById("filter-form").reset();
+}
