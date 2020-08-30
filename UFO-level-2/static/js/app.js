@@ -6,43 +6,37 @@ var tableData = data;
 // Get a reference to the table body
 var tbody = d3.select("tbody");
 
-// Loop through each ufo object in the data array
+// Add the whole table of ufo sightings data when loading the page
 tableData.forEach((ufo) => {
-
-	// Use d3 to append one table row `tr` for each ufo object
 	var row = tbody.append("tr");
-
-	// Use `Object.entries` and forEach to iterate through keys and values
 	Object.entries(ufo).forEach(([key, value]) => {
-
-		// Use d3 to append one cell per ufo object value (date, city, state, country, shape, duration, and comments)  
 		var cell = row.append("td");
 		cell.text(value);
 	})
 })
 
-// Create arrays to store distinct countries, states, and shapes
-var uniqueCountry = [... new Set(tableData.map(ufo => ufo.country))];
+// Create arrays to store distinct countries, states, and shapes in abc order
+var uniqueCountry = [... new Set(tableData.map(ufo => ufo.country))].sort();
 console.log(uniqueCountry);
 
-var uniqueState = [... new Set(tableData.map(ufo => ufo.state))];
+var uniqueState = [... new Set(tableData.map(ufo => ufo.state))].sort();
 console.log(uniqueState);
 
-var uniqueShape = [... new Set(tableData.map(ufo => ufo.shape))];
+var uniqueShape = [... new Set(tableData.map(ufo => ufo.shape))].sort();
 console.log(uniqueShape);
 
-// Dynamically add unique countries, states and shapes to dropdown menus
+// Dynamically add unique countries, states and shapes to corresponding dropdown menus
 uniqueCountry.forEach((country) => {
-	d3.select("#country").append("option").text(country)
-});
+	d3.select("#country").append("option").text(country);
+})
 
 uniqueState.forEach((state) => {
-	d3.select("#state").append("option").text(state)
-});
+	d3.select("#state").append("option").text(state);
+})
 
 uniqueShape.forEach((shape) => {
-	d3.select("#shape").append("option").text(shape)
-});
+	d3.select("#shape").append("option").text(shape);
+})
 
 // Select the button Clear Filter and the form's inputs and dropdown selections
 var country = d3.select("#country");
@@ -52,9 +46,7 @@ var city = d3.select("#city");
 var datetime = d3.select("#datetime");
 var button = d3.select("#filter-btn");
 
-// Create event handlers on 
-// button.on("click", filterTable);
-// form.on("submit", filterTable);
+// Create event handlers
 country.on("change", updateFilters);
 state.on("change", updateFilters);
 shape.on("change", updateFilters);
@@ -71,16 +63,11 @@ function updateFilters() {
   // Save the element, value, and id of the filter that was changed
 	// In an event, "this" refers to the html element that received the event.
   var inputElement = d3.select(this);
-
-	console.log(this)
-
- // select(".form-control")
-  //var inputValue = inputElement.property("value");
   var filterId = inputElement.attr("id");
-  var inputValue = inputElement.property("value");
+  var inputValue = inputElement.property("value").toLowerCase();
 
   // If a filter value was entered then add that filterId and value
-  // to the filters list. Otherwise, clear that filter from the filters object.
+  // to the filters array. Otherwise, clear that filter from the filters object.
   if (inputValue) {
 	  multifilters[filterId] = inputValue;
   }
@@ -92,7 +79,6 @@ function updateFilters() {
   filterTable();
 }
 
-// Complete the event handler function for the form
 function filterTable() {
 
   // Prevent the page from refreshing
@@ -105,7 +91,7 @@ function filterTable() {
 				return false;
 		}
 		return true;
-	});
+	})
 	
 	// Clear out current contents in the table
 	tbody.html("");
@@ -120,13 +106,13 @@ function filterTable() {
 			Object.entries(ufo).forEach(([key, value]) => {
 				var cell = row.append("td");
 				cell.text(value);
-			});
-		});
-	};
-};
+			})
+		})
+	}
+}
 
 function clear() {
 	multifilters = {};
-	filterTable();
 	document.getElementById("filter-form").reset();
+	filterTable();
 }
