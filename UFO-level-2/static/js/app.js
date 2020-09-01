@@ -38,21 +38,11 @@ uniqueShape.forEach((shape) => {
 	d3.select("#shape").append("option").text(shape);
 })
 
-// Select the button Clear Filter and the form's inputs and dropdown selections
-var country = d3.select("#country");
-var state = d3.select("#state");
-var shape = d3.select("#shape");
-var city = d3.select("#city");
-var datetime = d3.select("#datetime");
-var button = d3.select("#filter-btn");
+// Select and Create event handlers for the form's inputs and dropdown selections
+d3.selectAll(".form-control").on("change", updateFilters);
 
-// Create event handlers
-country.on("change", updateFilters);
-state.on("change", updateFilters);
-shape.on("change", updateFilters);
-city.on("change", updateFilters);
-datetime.on("change", updateFilters);
-button.on("click", clear);
+// Select and Create event handlers for the button Clear Filter
+d3.select("#filter-btn").on("click", clear);
 
 // Create filter object to keep track of all filters
 var multifilters = {};
