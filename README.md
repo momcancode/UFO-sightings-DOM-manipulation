@@ -22,6 +22,7 @@ The data is provided by Monash University Data Analytics Bootcamp.
   4. `country`
   5. `shape`
 
-- - -
-### Copyright of the Challenge
-Trilogy Education Services © 2019. All Rights Reserved.
+---
+Contact:
+
+Email: thao.ph.ha@gmail.com
